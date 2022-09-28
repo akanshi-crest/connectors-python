@@ -304,11 +304,9 @@ async def set_server_responses(
     def update_connector(url, **kw):
         read_only_fields = [
             "is_native",
-            "service_type",
             "api_key_id",
             "pipeline",
             "scheduling",
-            "configuration",
         ]
         fields = json.loads(kw["data"])["doc"].keys()
         for field in fields:
