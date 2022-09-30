@@ -22,4 +22,4 @@ test:
 
 
 ftest:
-	connectors/tests/ftest.sh $(NAME)
+	bin/python connectors/tests/ftest.py $(NAME)
