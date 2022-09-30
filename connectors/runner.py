@@ -24,6 +24,7 @@ from connectors.logger import logger
 from connectors.source import (
     get_data_sources,
     get_data_source,
+    ServiceTypeNotConfiguredError,
     ServiceTypeNotSupportedError,
     DataSourceError,
 )
@@ -149,6 +150,11 @@ class ConnectorService:
                             logger.debug(f"Connector {connector.id} natively supported")
                         try:
                             data_source = await get_data_source(connector, self.config)
+                        except ServiceTypeNotConfiguredError:
+                            logger.error(
+                                f"Service type is not configured for connector {self.config['connector_id']}"
+                            )
+                            continue
                         except ServiceTypeNotSupportedError:
                             logger.debug(
                                 f"Can't handle source of type {connector.service_type}"
